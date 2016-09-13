@@ -24,61 +24,51 @@ public class ShoppingCartTest {
 	}
 	
     @Test(expected = NullPointerException.class)
-    public void testCheckOutForNullPointerException() throws Exception {
+    public void testCheckOutWithOffersForNullPointerException() throws Exception {
         List<String> fruitsList = null;
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£0.0");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"£0.0");
     }
 
     @Test
-    public void testCheckOutForEmptyFruits() throws Exception {
+    public void testCheckOutWithOffersForEmptyFruits() throws Exception {
         List<String> fruitsList = Arrays.asList("");
-        assertEquals("no items to scan",shoppingCart.checkOut(fruitsList),"");
+        assertEquals("no items to scan",shoppingCart.checkOutWithOffers(fruitsList),"");
     }
     
     @Test
-    public void testCheckOutForInvalidFruit() throws Exception {
+    public void testCheckOutWithOffersForInvalidFruit() throws Exception {
         List<String> fruitsList = Arrays.asList("Banana");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"");
     }
 
 
     @Test
-    public void testCheckOutForSingleFruit() throws Exception {
-        List<String> fruitsList = Arrays.asList("Apple");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£0.60");
-        
-        fruitsList = Arrays.asList("Orange");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£0.25");
+    public void testCheckOutWithOffersForAppleFruit() throws Exception {
+        List<String> fruitsList = Arrays.asList("Apple","Apple");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"£0.60");        
     }
+    
+    @Test
+    public void testCheckOutWithOffersForOrangeFruit() throws Exception {        
+        List<String> fruitsList = Arrays.asList("Orange","Orange","Orange");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"£0.50");
+    }
+
 
     @Test
     public void testCheckOutForMultipleFruits() throws Exception {
-        List<String> fruitsList = Arrays.asList("Apple","Orange");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£0.85");
+        List<String> fruitsList = Arrays.asList("Apple","Apple","Orange");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"£0.85");
 
-        fruitsList = Arrays.asList("Apple","Apple","Orange","Apple");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£2.05");
+        fruitsList = Arrays.asList("Apple","Apple","Orange","Orange","Orange");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"£1.10");
         
-        fruitsList = Arrays.asList("Orange","Orange","Orange","Apple");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£1.35");
+        fruitsList = Arrays.asList("Orange","Orange","Orange","Apple","Apple","Apple");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"£1.70");
 
-        fruitsList = Arrays.asList("Apple","Orange","Orange","Apple");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£1.70");
+        fruitsList = Arrays.asList("Apple","Orange","Orange","Apple","Orange","Orange");
+        assertEquals("expected and actual prices not equal",shoppingCart.checkOutWithOffers(fruitsList),"£1.35");
 
     }
     
-    /*
-     *  For the below testcase, it's assumed that string values for fruit names are case sensitive
-     * 
-     */
-    
-    @Test
-    public void testCheckOutForCaseSensitive() throws Exception {
-        List<String> fruitsList = Arrays.asList("apple","Orange");
-        assertEquals("expected and actual prices not equal",shoppingCart.checkOut(fruitsList),"£0.25");
-    }
-
-
-
-
 }
